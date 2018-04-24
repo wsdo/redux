@@ -22,22 +22,19 @@
       //定义一个派发函数
       //当在外界调用此函数的时候，会修改状态
       const dispatch = (action) => {
-        console.log('====================================')
-        console.log('action', action)
-        console.log('state', state)
-        console.log('====================================')
+        // console.log('====================================')
+        // console.log('action', action)
+        // console.log('state', state)
+        // console.log('====================================')
         //调用reducer函数修改状态，返回一新的状态并赋值给这个局部状态变量
         state = reducer(state, action);
         //依次调用监听函数，通知所有的监听函数
-        // listeners.forEach(listener => listener());
+        listeners.forEach(listener => listener());
       }
       //订阅此状态的函数，当状态发生变化的时候记得调用此监听函数
       const subscribe = function (listener) {
         //先把此监听 加到数组中
         listeners.push(listener);
-        console.log('====================================')
-        console.log(listeners)
-        console.log('====================================')
 
         //返回一个函数，当调用它的时候将此监听函数从监听数组移除
         return function () {
@@ -66,19 +63,6 @@
       }
     }
 
-    // function counter(state = 0, action) {
-    //   console.log(state, action)
-    //   // let state = state||0
-    //   switch (action.type) {
-    //     case 'INCREMENT':
-    //       return state + 1
-    //     case 'MIN':
-    //       return state - 1
-    //     default:
-    //       return 10
-    //   }
-    // }
-
     let store = createStore(reducer);
     // console.log
     const init = store.getState()
@@ -88,6 +72,9 @@
 
     //把数据渲染到界面上
     const render = () => {
+      console.log('====================================')
+      console.log(store.getState())
+      console.log('====================================')
       document.body.innerText = store.getState()
     }
 
